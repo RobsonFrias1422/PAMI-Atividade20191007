@@ -4,9 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
-public class MainActivity extends AppCompatActivity implements CustomDialog.ItemListener{
+public class MainActivity extends AppCompatActivity implements CustomDialog.ItemListener,
+        AdapterView.OnItemLongClickListener,
+        PopupMenu.OnMenuItemClickListener{
 
     private boolean insertMode;
     private ItemAdapter adapter;
@@ -24,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
 
         listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
-
+        listView.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -53,5 +58,18 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
             insertMode = true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        PopupMenu popup = new PopupMenu(  this, view);
+        popup.inflate(R.menu.menu2);
+        popup.show();
+        return false;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        return false;
     }
 }
