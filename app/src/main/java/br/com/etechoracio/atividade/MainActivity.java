@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         adapter.removeItem(selectedItem);
+        adapter.removeItem(selectedItemName);
         return false;
     }
 }
