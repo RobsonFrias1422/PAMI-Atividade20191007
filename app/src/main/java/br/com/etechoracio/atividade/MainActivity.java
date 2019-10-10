@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
     public boolean onCreateOptionsMenu(Menu menu) {
 
     getMenuInflater().inflate(R.menu.menu,menu);
+
     return super.onCreateOptionsMenu(menu);
 
     }
@@ -64,14 +65,30 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         PopupMenu popup = new PopupMenu(  this, view);
         popup.inflate(R.menu.menu2);
+        popup.setOnMenuItemClickListener(this);
         popup.show();
         return false;
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        adapter.removeItem(selectedItem);
-        adapter.removeItem(selectedItemName);
-        return false;
+        if(menuItem.getItemId() == R.id.Excluir) {
+
+            adapter.removeItem(selectedItem);
+
+            insertMode = false;
+            return true;
+        }
+        else if(menuItem.getItemId() == R.id.Editar){
+
+            CustomDialog dialog = new CustomDialog(this);
+            dialog.show(getFragmentManager(), "Editar");
+
+            insertMode = false;
+            return true;
+        }
+        else{
+            return super.onOptionsItemSelected(menuItem);
+        }
     }
 }
